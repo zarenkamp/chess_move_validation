@@ -1,0 +1,53 @@
+ROOK_white:
+  init_pos: [A1, H1]
+  directions_of_movement:
+    - [ 1,  0]
+    - [-1,  0]
+    - [ 0,  1]
+    - [ 0, -1]
+  max_steps: 7
+  sign: Rw
+
+ROOK_black:
+  init_pos: [A8, H8]
+  directions_of_movement:
+    - [ 1,  0]
+    - [-1,  0]
+    - [ 0,  1]
+    - [ 0, -1]
+  max_steps: 7
+  sign: Rb
+
+BISHOP_white:
+  init_pos: [C1, F1]
+  directions_of_movement:
+    - [ 1,  1]
+    - [ 1, -1]
+    - [-1,  1]
+    - [-1, -1]
+  max_steps: 7
+  sign: Bw
+
+BISHOP_black:
+  init_pos: [C8, F8]
+  directions_of_movement:
+    - [ 1,  1]
+    - [ 1, -1]
+    - [-1,  1]
+    - [-1, -1]
+  max_steps: 7
+  sign: Bb
+
+PAWN_white:
+  init_pos: [A2, B2, C2, D2, E2, F2, G2, H2]
+  directions_of_movement:
+    - [ 0,  1]
+  max_steps: 1
+  sign: Pw
+
+PAWN_black:
+  init_pos: [A7, B7, C7, D7, E7, F7, G7, H7]
+  directions_of_movement:
+    - [ 0, -1]
+  max_steps: 1
+  sign: Pb
