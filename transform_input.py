@@ -10,7 +10,7 @@ def transform_into_coordinates(letter_plus_code: str):
             and letter_plus_code[0] in mapping.keys()\
             and letter_plus_code[1].isnumeric()\
             and letter_plus_code[1] in mapping.keys():
-        return mapping[letter_plus_code[0]], mapping[letter_plus_code[1]]
+        return mapping[letter_plus_code[1]], mapping[letter_plus_code[0]]  # row index before column index
     else:
         return ReturnCodes.WRONG_INPUT_FORMAT.value
 
