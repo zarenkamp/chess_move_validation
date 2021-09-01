@@ -3,9 +3,15 @@ import colorama
 colorama.init()
 
 
-def draw_board(board):
+def draw_board(board: list):
 
-    insert_board = [colored(field[0], color_piece(field)) for row in board for field in row]
+    insert_board = []
+
+    for index_row, row in enumerate(board):
+        for index_col, piece in enumerate(row):
+            insert_board.append(colored(piece[0], color_piece(piece, index_row, index_col)))
+
+    print(insert_board)
 
     print("8 |{} {} {} {} {} {} {} {}\n"
           "7 |{} {} {} {} {} {} {} {}\n"
@@ -19,12 +25,14 @@ def draw_board(board):
           "   A B C D E F G H".format(*insert_board))
 
 
-def color_piece(piece_to_color):
+def color_piece(piece_to_color, row_index, col_index):
 
     if 'w' in piece_to_color:
         return 'yellow'
     elif 'b' in piece_to_color:
-        return 'blue'
+        return 'green'
+    elif row_index % 2 != 0 and col_index % 2 != 0 or row_index % 2 == 0 and col_index % 2 == 0:
+        return 'white'
     else:
         return 'grey'
 
@@ -36,11 +44,22 @@ if __name__ == '__main__':
 
     test_board = [['Rb', 'Nb', 'Bb', 'Qb', 'Nb', 'Bb', 'Nb', 'Rb'],
                   ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
-                  [ '0',  '0',  '0',  '0',  '0',  '0',  '0',  '0'],
-                  [ '0',  '0',  '0',  '0',  '0',  '0',  '0',  '0'],
-                  [ '0',  '0',  '0',  '0',  '0',  '0',  '0',  '0'],
-                  [ '0',  '0',  '0',  '0',  '0',  '0',  '0',  '0'],
+                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
+                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
+                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
+                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
                   ['Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw'],
                   ['Rw', 'Nw', 'Bw', 'Qw', 'Kw', 'Bw', 'Nw', 'Rw']]
 
-    draw_board(test_board)
+    test_board_1 = [['Rb', '+', 'Bb', 'Qb', 'Nb', 'Bb', 'Nb', 'Rb'],
+                  ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
+                  ['+', '+', 'Nb', '+', '+', '+', '+', '+'],
+                  ['+', '+', '+', '+', '+', '+', '+', '+'],
+                  ['+', '+', '+', 'Pw', 'Bw', '+', '+', '+'],
+                  ['+', '+', '+', '+', '+', '+', '+', '+'],
+                  ['Pw', 'Pw', 'Pw', '+', 'Pw', 'Pw', 'Pw', 'Pw'],
+                  ['Rw', 'Nw', '+', 'Qw', 'Kw', 'Bw', 'Nw', 'Rw']]
+
+
+
+    draw_board(test_board_1)
