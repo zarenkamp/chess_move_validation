@@ -1,7 +1,8 @@
 from return_codes import ReturnCodes
 
-
 def transform_into_coordinates(letter_plus_code: str):
+    # transforms from normal board view down side letters A-H, sides count from 1-8 to a system where 0,0 is the upper
+    # left corner
     mapping = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7,
                '1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
     letter_plus_code = letter_plus_code.upper()
