@@ -11,8 +11,6 @@ def draw_board(board: list):
         for index_col, piece in enumerate(row):
             insert_board.append(colored(piece[0], color_piece(piece, index_row, index_col)))
 
-    print(insert_board)
-
     print("8 |{} {} {} {} {} {} {} {}\n"
           "7 |{} {} {} {} {} {} {} {}\n"
           "6 |{} {} {} {} {} {} {} {}\n"
@@ -30,7 +28,7 @@ def color_piece(piece_to_color, row_index, col_index):
     if 'w' in piece_to_color:
         return 'yellow'
     elif 'b' in piece_to_color:
-        return 'green'
+        return 'red'
     elif row_index % 2 != 0 and col_index % 2 != 0 or row_index % 2 == 0 and col_index % 2 == 0:
         return 'white'
     else:
