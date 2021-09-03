@@ -2,6 +2,8 @@ from return_codes import ReturnCodes
 import yaml
 import random
 from transform_input import transform_into_coordinates
+from init_board import init_board
+from draw_board import draw_board
 
 
 class ChessGame:
@@ -15,20 +17,13 @@ class ChessGame:
             print(ReturnCodes.CONFIG_ERROR.value, e)
 
         self.occupied_fields = {}
-        # draw initially '+' on the field
-        self.board = [['+' for j in range(8)] for i in range(8)]
 
-        if rand_order:
-            pass
-        else:
-            for piece in self.pieces_config.keys():
-                for colour in self.pieces_config[piece].keys():
-                    for position in self.pieces_config[piece][colour]['init_pos']:
-                        self.occupied_fields[position] = {'piece': piece,
-                                                           'colour': colour,
-                                                           'dir': self.pieces_config[piece][colour]['directions_of_movement'],
-                                                           'sign': 'R'}
+        self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)
+
         print(self.occupied_fields)
+
+        draw_board(self.board)
+
 
 
 
@@ -36,4 +31,4 @@ class ChessGame:
 
 
 if __name__ == '__main__':
-    game = ChessGame(rand_order=False)
+    game = ChessGame(rand_order=True)
