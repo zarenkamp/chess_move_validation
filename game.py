@@ -14,21 +14,23 @@ class ChessGame:
         try:
             with open("chess_figure_config.yml", "r") as ymlfile:
                 self.pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+            self.occupied_fields = {}
+            self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)
+            print('Board ready...')
+            draw_board(self.board)
+
         except Exception as e:
             print(ReturnCodes.CONFIG_ERROR.value, e)
 
-        self.occupied_fields = {}
-        self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)
-        print('Board ready...')
-        draw_board(self.board)
+
 
     def get_intended_move(self):
 
         while True:
-            piece_to_move = input('Which piece to move?').upper()
-            user_input = check_input(piece_to_move)
+            starting_field = input('Which piece to move?').upper()
+            user_input = check_input(starting_field)
             if user_input['result']:
-                check = check_field(piece_to_move, self.occupied_fields)
+                check = check_field(starting_field, self.occupied_fields)
                 if check['result']:
                     print(f'{check["colour"].capitalize()} {check["piece"].lower()} selected')
                     break
@@ -41,11 +43,21 @@ class ChessGame:
             target_field = input('Where to move?').upper()
             res = check_input(target_field)
             if res['result']:
-                break
+                if target_field == starting_field:
+                    print(ReturnCodes.SAME_COORDINATES.value)
+                else:
+                    break
             else:
                 print(res['message'])
 
-        print(f'{check["colour"].capitalize()} {check["piece"].lower()} {piece_to_move} --> {target_field}')
+        print(f'{check["colour"].capitalize()} {check["piece"].lower()} {starting_field} --> {target_field}')
+        return starting_field, target_field
+
+
+    def validate_move(self, moves: tuple) -> dict:
+        pass
+
+
 
 
 
