@@ -11,4 +11,5 @@ class ReturnCodes(Enum):
     EMPTY_FIELD = 'Empty field selected.'
     SAME_COORDINATES = 'Input coordinates are identical'
     ENTRY_NOT_FOUND = 'Entry not found'
+    CONFIG_ERROR = 'Config not found!'
 
