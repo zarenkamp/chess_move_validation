@@ -6,10 +6,24 @@ colorama.init()
 def draw_board(board: list):
 
     insert_board = []
+    color_white_figs = 'yellow'
+    color_black_figures = 'red'
 
     for index_row, row in enumerate(board):
         for index_col, piece in enumerate(row):
-            insert_board.append(colored(piece[0], color_piece(piece, index_row, index_col)))
+
+            if type(piece) == tuple:
+                if piece[1] == 'white':
+                    # inserts only the first letter of the pieces name e.g. 'ROOK' -> 'R'
+                    insert_board.append(colored(piece[0][0], color_white_figs))
+                else:
+                    insert_board.append(colored(piece[0][0], color_black_figures))
+            else:
+                if index_row % 2 != 0 and index_col % 2 != 0 or index_row % 2 == 0 and index_col % 2 == 0:
+                    insert_board.append(colored(piece, 'white'))
+                else:
+                    insert_board.append(colored(piece, 'grey'))
+
 
     print("   A B C D E F G H\n"
           "   ---------------\n"
@@ -25,41 +39,16 @@ def draw_board(board: list):
           "   A B C D E F G H".format(*insert_board))
 
 
-def color_piece(piece_to_color, row_index, col_index):
-
-    if 'w' in piece_to_color:
-        return 'yellow'
-    elif 'b' in piece_to_color:
-        return 'red'
-    elif row_index % 2 != 0 and col_index % 2 != 0 or row_index % 2 == 0 and col_index % 2 == 0:
-        return 'white'
-    else:
-        return 'grey'
-
-
-
-
-
 if __name__ == '__main__':
 
-    test_board = [['Rb', 'Nb', 'Bb', 'Qb', 'Nb', 'Bb', 'Nb', 'Rb'],
-                  ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
-                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
-                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
-                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
-                  [ '+',  '+',  '+',  '+',  '+',  '+',  '+',  '+'],
-                  ['Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw', 'Pw'],
-                  ['Rw', 'Nw', 'Bw', 'Qw', 'Kw', 'Bw', 'Nw', 'Rw']]
-
-    test_board_1 = [['Rb', '+', 'Bb', 'Qb', 'Nb', 'Bb', 'Nb', 'Rb'],
-                  ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
-                  ['+', '+', 'Nb', '+', '+', '+', '+', '+'],
+    test_board = [[('ROOK', 'black'), '+', ('BISHOP', 'black'), '+', '+', ('BISHOP', 'black'), '+', ('ROOK', 'black')],
+                  [('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black')],
                   ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  ['+', '+', '+', 'Pw', 'Bw', '+', '+', '+'],
                   ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  ['Pw', 'Pw', 'Pw', '+', 'Pw', 'Pw', 'Pw', 'Pw'],
-                  ['Rw', 'Nw', '+', 'Qw', 'Kw', 'Bw', 'Nw', 'Rw']]
+                  ['+', '+', '+', '+', '+', '+', '+', '+'],
+                  ['+', '+', '+', '+', '+', '+', '+', '+'],
+                  [('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white')],
+                  [('ROOK', 'white'), '+', ('BISHOP', 'white'), '+', '+', ('BISHOP', 'white'), '+', ('ROOK', 'white')]]
 
 
-
-    draw_board(test_board_1)
+    draw_board(test_board)
