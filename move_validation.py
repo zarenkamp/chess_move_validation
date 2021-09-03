@@ -1,45 +1,56 @@
 from return_codes import ReturnCodes
 import yaml
 from math import sqrt
+from transform_input import transform_into_coordinates
 
-
-def move_validation(a: list, b: list, board: list) -> dict:
+def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
     """
     validate move from a to b
     """
-    with open("chess_figure_config.yml", "r") as ymlfile:
-        pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
-    if a == b:
-        return {'validation': False, 'figure': None, 'message': ReturnCodes.SAME_COORDINATES.value}
+    start_coords = transform_into_coordinates(a)
+    target_coords = transform_into_coordinates(b)
+    print(start_coords, target_coords)
+    # get vector
+    move_vector = [target_coords[0]-start_coords[0], target_coords[1]-start_coords[1]]
+    print(move_vector)
+    # get directions of move
 
-    # check if there is a piece at the selected field
-    piece = board[a[0]][a[1]]
-    print(f'piece: {piece}')
-    if piece == '+':
-        return {'validation': False, 'figure': None, 'message': ReturnCodes.EMPTY_FIELD.value}
+    if occupied_fields[a] == 'KNIGHT':
+        if move_vector not in occupied_fields[a]['dir']:
+            return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value}
+        else:
+            print('valid')
     else:
-        intended_move = [b[0]-a[0], b[1]-a[1]]
-        length = sqrt(intended_move[0]**2 + intended_move[1]**2)
-        intended_move_norm = [1/length * intended_move[0], 1/length * intended_move[1]]
-
-        # get directions of move
-        for figure in pieces_config.keys():
-            print(figure)
-            for colour in pieces_config[figure]:
-                print(colour)
-                if pieces_config[figure][colour]['sign'] == piece:
-                    directions_of_move = pieces_config[figure][colour]['directions_of_movement']
-                    print(directions_of_move, intended_move_norm)
-
-        if intended_move_norm not in directions_of_move:
-            return {'validation': False, 'figure': None, 'message': ReturnCodes.INVALID_MOVE.value}
+        max_value = max(abs(move_vector[0]), abs(move_vector[1]))
+        vector_reduced = [move_vector[0]/max_value, move_vector[1]/max_value]
+        if vector_reduced not in occupied_fields[a]['dir']:
+            return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value}
+        else:
+            print('valid')
 
 
 
 
 
 if __name__ == '__main__':
+    with open("chess_figure_config.yml", "r") as ymlfile:
+        pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
+
+    occ = {'G3': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'R'}, 'B5': {'piece': 'PAWN', 'colour': 'black', 'dir': [[-1, 0]], 'sign': 'R'}, 'D7': {'piece': 'PAWN', 'colour': 'black', 'dir': [[-1, 0]], 'sign': 'R'}, 'E6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[-1, 0]], 'sign': 'R'}, 'G6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[-1, 0]], 'sign': 'R'}, 'B6': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R'}, 'H5': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R'}, 'G7': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R'}, 'F8': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R'}, 'H2': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R'}, 'H4': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R'}, 'F2': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R'}, 'D6': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R'}, 'G2': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R'}, 'A4': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R'}, 'E8': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R'}, 'C3': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R'}}
+
+    a = 'G3'
+    b = 'G4'
+    print(move_validation(a, b, occ))
+
+
+
+
+
+
+
+
+
     test_board_1 = [['Rb', '+', 'Bb', 'Qb', 'Nb', 'Bb', 'Nb', 'Rb'],
                    ['Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb', 'Pb'],
                    ['+', '+', 'Nb', '+', '+', '+', '+', '+'],
@@ -58,4 +69,3 @@ if __name__ == '__main__':
                    ['+', '+', '+', '+', '+', '+', '+', '+'],
                    ['+', '+', '+', '+', '+', '+', '+', '+']]
 
-    print(move_validation([4, 2], [0, 0], test_board_2))
