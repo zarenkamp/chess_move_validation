@@ -2,13 +2,13 @@ PAWN:
   white:
     init_pos: [A2, B2, C2, D2, E2, F2, G2, H2] # placed at the lower end of the board
     directions_of_movement:
-       - [ 1,  0 ] # means one field up, no movement in horizontal direction
+       - [ -1,  0 ]
     max_steps: 1
     sign: Pw
   black:
     init_pos: [A7, B7, C7, D7, E7, F7, G7, H7]
     directions_of_movement:
-      - [ -1,  0 ]
+      - [ 1,  0 ]
     max_steps: 1
     sign: Pb
 
@@ -51,6 +51,34 @@ BISHOP:
       - [-1, -1 ]
     max_steps: 7
     sign: Bb
+
+KNIGHT:
+  white:
+    init_pos: [B1, G1]
+    directions_of_movement:
+      - [ 2,  1 ]
+      - [ 2, -1 ]
+      - [-2,  1 ]
+      - [-2, -1 ]
+      - [ 1,  2 ]
+      - [ 1, -2 ]
+      - [-1,  2 ]
+      - [-1, -2 ]
+    max_steps: 1
+    sign: Kw
+  black:
+    init_pos: [B8, G8]
+    directions_of_movement:
+      - [ 2,  1 ]
+      - [ 2, -1 ]
+      - [-2,  1 ]
+      - [-2, -1 ]
+      - [ 1,  2 ]
+      - [ 1, -2 ]
+      - [-1,  2 ]
+      - [-1, -2 ]
+    max_steps: 1
+    sign: Kb
 
 #PAWN:
 #  white:
