@@ -1,6 +1,4 @@
-import yaml
 from transform_input import transform_into_coordinates, transform_into_code
-from draw_board import draw_board
 import random
 from fill_board import fill_board
 
@@ -15,13 +13,7 @@ def init_board(pieces_config, random_lineup=False):
 
     # draw initially '+' on the field
     initial_board = [['+' for j in range(8)] for i in range(8)]
-    #draw_board(lineup)
-    # read config file into dict
-    # kann nachher raus da in ChessGame Klasse definiert
-    # with open("chess_figure_config.yml", "r") as ymlfile:
-    #     pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
-    ######################################################################
-    # print(pieces_config)
+
     occupied_fields = {}
     if random_lineup:
         for colour in pieces_config['PAWN']:
@@ -29,6 +21,7 @@ def init_board(pieces_config, random_lineup=False):
             pawn_number = random.randint(1, 5)
             pawn_selection = random.sample(pieces_config['PAWN'][colour]['init_pos'], pawn_number)
             for pawn_position in pawn_selection:
+                # transform into board coordinates
                 pawn_coord = transform_into_coordinates(pawn_position)
                 rand_movement = random.randint(0, 2)
                 # ...and moves them by initial position +0 - +2 * directions_of_movement,
@@ -36,8 +29,8 @@ def init_board(pieces_config, random_lineup=False):
                 pawn_row = pawn_coord[0] + rand_movement * pieces_config['PAWN'][colour]['directions_of_movement'][0][0] * (-1)
                 # column of the pawn stays the same
                 pawn_col = pawn_coord[1]
+                # re-transform
                 position = transform_into_code([pawn_row, pawn_col])
-                print(position)
                 occupied_fields[position] = {'piece': 'PAWN',
                                              'colour': colour,
                                              'dir': pieces_config['PAWN'][colour][
