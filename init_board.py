@@ -2,16 +2,25 @@ import yaml
 from transform_input import transform_into_coordinates, transform_into_code
 from draw_board import draw_board
 import random
+from fill_board import fill_board
 
 
-def init_board(random_lineup=False, board):
+def init_board(pieces_config, random_lineup=False):
+    """
+    Initilizes the board either according to initial positions in the config or randomly
+    :param pieces_config: config file with all information about the used chess figures
+    :param random_lineup:  bool if pieces should be placed randomly
+    :return: board as list with pieces at positions to occupied fields dict, occupied fields dict
+    """
 
     # draw initially '+' on the field
-    #lineup = [['+' for j in range(8)] for i in range(8)]
+    initial_board = [['+' for j in range(8)] for i in range(8)]
     #draw_board(lineup)
     # read config file into dict
-    with open("chess_figure_config.yml", "r") as ymlfile:
-        pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+    # kann nachher raus da in ChessGame Klasse definiert
+    # with open("chess_figure_config.yml", "r") as ymlfile:
+    #     pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
+    ######################################################################
     # print(pieces_config)
     occupied_fields = {}
     if random_lineup:
@@ -34,21 +43,29 @@ def init_board(random_lineup=False, board):
                                              'dir': pieces_config['PAWN'][colour][
                                              'directions_of_movement'],
                                              'sign': 'R'}
-        #
-        # # get all empty fields on the board
-        # empty_fields = [(row_index, col_index) for row_index, row in enumerate(lineup)
-        #                 for col_index, col in enumerate(row) if col == '+']
-        #
-        # # get all pieces which are not pawns
-        # list_of_figures = [pieces_config[piece][colour]['sign'] for piece in pieces_config.keys()
-        #                    for colour in pieces_config[piece].keys() if 'P' not in pieces_config[piece][colour]['sign']]
-        #
-        # # place all other figures randomly on the field by selecting as much fields as needed from the empty fields list
-        # field_selection = random.sample(empty_fields, len(list_of_figures))
-        #
-        # # finally placing the pieces
-        # for piece, position in zip(list_of_figures, field_selection):
-        #     lineup[position[0]][position[1]] = piece
+
+        # fill board to see which fields are still empty
+        board_temp = fill_board(occupied_fields, initial_board)
+
+        # get all empty fields on the board after placing the pawns
+        empty_fields = [(row_index, col_index) for row_index, row in enumerate(board_temp)
+                        for col_index, col in enumerate(row) if col == '+']
+
+        for piece in pieces_config.keys():
+            # pawns are already placed and can be skipped
+            if piece != 'PAWN':
+                for colour in pieces_config[piece].keys():
+                    # repeat as often that all figures which should be placed according to init_pos are placed
+                    for number in range(len(pieces_config[piece][colour]['init_pos'])):
+                        # pick a random empty field and remove it from the list
+                        random_index = random.randint(0, len(empty_fields) - 1)
+                        random_position = transform_into_code(empty_fields.pop(random_index))
+                        occupied_fields[random_position] = {'piece': piece,
+                                                          'colour': colour,
+                                                          'dir': pieces_config[piece][colour][
+                                                          'directions_of_movement'],
+                                                          'sign': 'R'}
+        board = fill_board(occupied_fields, board_temp)
 
     else:
         for piece in pieces_config.keys():
@@ -59,10 +76,13 @@ def init_board(random_lineup=False, board):
                                                       'dir': pieces_config[piece][colour][
                                                       'directions_of_movement'],
                                                       'sign': 'R'}
+        board = fill_board(occupied_fields, initial_board)
 
-    # draw_board(lineup)
-    print(occupied_fields)
+    return board, occupied_fields
+
+
+
 
 if __name__ == '__main__':
-    board = [['+' for j in range(8)] for i in range(8)]
-    print(init_board(True, board))
+
+    print(init_board(True))
