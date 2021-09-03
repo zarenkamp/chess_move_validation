@@ -17,7 +17,11 @@ def transform_into_coordinates(letter_plus_code: str):
         return ReturnCodes.WRONG_INPUT_FORMAT.value
 
 
+def transform_into_code(coordinates):
+    first_digit = {0: '8', 1: '7', 2: '6', 3: '5', 4: '4', 5: '3', 6: '2', 7: '1'}
+    second_digit = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H'}
+    return second_digit[coordinates[1]]+first_digit[coordinates[0]]
+
 if __name__ == '__main__':
-    num_1 = input("first try")
-    print(transform_into_coordinates(num_1))
-    print(type(transform_into_coordinates(num_1)))
+
+    print(type(transform_into_code([4, 5])))
