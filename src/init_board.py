@@ -66,7 +66,7 @@ def init_board(pieces_config, random_lineup=False):
                 for position in pieces_config[piece][colour]['init_pos']:
                     occupied_fields[position] = {'piece': piece,
                                                  'colour': colour,
-                                                 'dir': pieces_config[piece][colour]['sign'],
+                                                 'dir': pieces_config[piece][colour]['directions_of_movement'],
                                                  'sign': pieces_config[piece][colour]['sign'],
                                                  'max_steps': pieces_config[piece][colour]['max_steps']}
         board = fill_board(occupied_fields, initial_board)
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     with open("../chess_figures_config.yml", "r") as ymlfile:
         pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
-    res = init_board(pieces_configs, True)
+    res = init_board(pieces_configs, False)
     print(res[1])
     draw_board(res[0])
 
