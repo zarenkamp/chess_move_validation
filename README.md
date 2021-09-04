@@ -25,3 +25,8 @@ The only mandatory pieces which have to be supported are:
 The initial setup of the chess board can be hard coded into the tool 
 and does not have to be the normal initial chess setup. 
 The board can be initialized with any number and kind of pieces at any position.
+
+## Info
+Developed in Python 3.9
+# Packages
+....
