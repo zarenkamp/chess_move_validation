@@ -1,0 +1,137 @@
+PAWN:
+  white:
+    init_pos: [A2, B2, C2, D2, E2, F2, G2, H2] # placed at the lower end of the board
+    directions_of_movement:
+       - [ -1,  0 ]
+    max_steps: 1
+    sign: P
+  black:
+    init_pos: [A7, B7, C7, D7, E7, F7, G7, H7]
+    directions_of_movement:
+      - [ 1,  0 ]
+    max_steps: 1
+    sign: P
+
+ROOK:
+  white:
+    init_pos: [A1, H1]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+    max_steps: 7
+    sign: R
+  black:
+    init_pos: [A8, H8]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+    max_steps: 7
+    sign: R
+
+BISHOP:
+  white:
+    init_pos: [C1, F1]
+    directions_of_movement:
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 7
+    sign: B
+  black:
+    init_pos: [C8, F8]
+    directions_of_movement:
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 7
+    sign: B
+
+KNIGHT:
+  white:
+    init_pos: [B1, G1]
+    directions_of_movement:
+      - [ 2,  1 ]
+      - [ 2, -1 ]
+      - [-2,  1 ]
+      - [-2, -1 ]
+      - [ 1,  2 ]
+      - [ 1, -2 ]
+      - [-1,  2 ]
+      - [-1, -2 ]
+    max_steps: 1
+    sign: N
+  black:
+    init_pos: [B8, G8]
+    directions_of_movement:
+      - [ 2,  1 ]
+      - [ 2, -1 ]
+      - [-2,  1 ]
+      - [-2, -1 ]
+      - [ 1,  2 ]
+      - [ 1, -2 ]
+      - [-1,  2 ]
+      - [-1, -2 ]
+    max_steps: 1
+    sign: N
+
+QUEEN:
+  white:
+    init_pos: [ D1 ]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 7
+    sign: Q
+  black:
+    init_pos: [D8]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 7
+    sign: Q
+
+KING:
+  white:
+    init_pos: [E1]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 1
+    sign: K
+  black:
+    init_pos: [E8]
+    directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
+      - [ 1,  1 ]
+      - [ 1, -1 ]
+      - [-1,  1 ]
+      - [-1, -1 ]
+    max_steps: 1
+    sign: K
