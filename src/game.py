@@ -53,7 +53,7 @@ class ChessGame:
             else:
                 print(res['message'])
 
-        print(f'{check["colour"].capitalize()} {check["piece"].capitalize} {self.starting_field} --> {self.target_field}')
+        print(f'{check["colour"].capitalize()} {check["piece"].capitalize()} {self.starting_field} --> {self.target_field}')
         return self.starting_field, self.target_field
 
     def validate_move(self):
@@ -68,9 +68,6 @@ class ChessGame:
             print(check_move['message'])
         else:
             print('Values not set yet, please choose first!')
-
-
-
 
 
 if __name__ == '__main__':
