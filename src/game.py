@@ -69,6 +69,10 @@ class ChessGame:
         else:
             print('Values not set yet, please choose first!')
 
+    def display_board(self):
+        draw_board(self.board)
+
+
 
 if __name__ == '__main__':
     game = ChessGame(rand_order=True)
