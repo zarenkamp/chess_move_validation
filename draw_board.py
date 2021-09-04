@@ -12,12 +12,11 @@ def draw_board(board: list):
     for index_row, row in enumerate(board):
         for index_col, piece in enumerate(row):
 
-            if type(piece) == tuple:
-                if piece[1] == 'white':
-                    # inserts only the first letter of the pieces name e.g. 'ROOK' -> 'R'
-                    insert_board.append(colored(piece[0][0], color_white_figs))
+            if type(piece) == dict:
+                if piece['colour'] == 'white':
+                    insert_board.append(colored(piece['sign'], color_white_figs))
                 else:
-                    insert_board.append(colored(piece[0][0], color_black_figures))
+                    insert_board.append(colored(piece['sign'], color_black_figures))
             else:
                 if index_row % 2 != 0 and index_col % 2 != 0 or index_row % 2 == 0 and index_col % 2 == 0:
                     insert_board.append(colored(piece, 'white'))
@@ -41,14 +40,7 @@ def draw_board(board: list):
 
 if __name__ == '__main__':
 
-    test_board = [[('ROOK', 'black'), '+', ('BISHOP', 'black'), '+', '+', ('BISHOP', 'black'), '+', ('ROOK', 'black')],
-                  [('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black'), ('PAWN', 'black')],
-                  ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  ['+', '+', '+', '+', '+', '+', '+', '+'],
-                  [('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white'), ('PAWN', 'white')],
-                  [('ROOK', 'white'), '+', ('BISHOP', 'white'), '+', '+', ('BISHOP', 'white'), '+', ('ROOK', 'white')]]
+    t2 = [[{'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}, '+', {'piece': 'BISHOP', 'colour': 'black', 'sign': 'R'}, '+', '+', {'piece': 'BISHOP', 'colour': 'black', 'sign': 'R'}, '+', {'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}], [{'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], [{'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}], [{'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}, '+', {'piece': 'BISHOP', 'colour': 'white', 'sign': 'R'}, '+', '+', {'piece': 'BISHOP', 'colour': 'white', 'sign': 'R'}, '+', {'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}]]
 
 
-    draw_board(test_board)
+    draw_board(t2)

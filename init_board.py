@@ -34,7 +34,7 @@ def init_board(pieces_config, random_lineup=False):
                 occupied_fields[position] = {'piece': 'PAWN',
                                              'colour': colour,
                                              'dir': pieces_config['PAWN'][colour]['directions_of_movement'],
-                                             'sign': 'R',
+                                             'sign': pieces_config['PAWN'][colour]['sign'],
                                              'max_steps': pieces_config['PAWN'][colour]['max_steps']}
         # fill board to see which fields are still empty
         board_temp = fill_board(occupied_fields, initial_board)
@@ -55,7 +55,7 @@ def init_board(pieces_config, random_lineup=False):
                         occupied_fields[random_position] = {'piece': piece,
                                                           'colour': colour,
                                                           'dir': pieces_config[piece][colour]['directions_of_movement'],
-                                                          'sign': 'R',
+                                                          'sign': pieces_config[piece][colour]['sign'],
                                                            'max_steps': pieces_config[piece][colour]['max_steps']}
         board = fill_board(occupied_fields, board_temp)
 
@@ -65,7 +65,7 @@ def init_board(pieces_config, random_lineup=False):
                 for position in pieces_config[piece][colour]['init_pos']:
                     occupied_fields[position] = {'piece': piece,
                                                  'colour': colour,
-                                                 'dir': pieces_config[piece][colour]['directions_of_movement'],
+                                                 'dir': pieces_config[piece][colour]['sign'],
                                                  'sign': 'R',
                                                  'max_steps': pieces_config[piece][colour]['max_steps']}
         board = fill_board(occupied_fields, initial_board)

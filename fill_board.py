@@ -11,7 +11,9 @@ def fill_board(occupied_fields: dict, board: list) -> list:
     """
     for field in occupied_fields.keys():
         coordinates = transform_into_coordinates(field)
-        board[coordinates[0]][coordinates[1]] = (occupied_fields[field]['piece'], occupied_fields[field]['colour'])
+        board[coordinates[0]][coordinates[1]] = {'piece': occupied_fields[field]['piece'],
+                                                 'colour': occupied_fields[field]['colour'],
+                                                 'sign': occupied_fields[field]['sign']}
     return board
 
 
