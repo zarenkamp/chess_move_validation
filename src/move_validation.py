@@ -1,7 +1,7 @@
-from return_codes import ReturnCodes
 import yaml
-from math import sqrt
-from transform_input import transform_into_coordinates, transform_into_code
+from src.transform_input import transform_into_coordinates, transform_into_code
+from src.return_codes import ReturnCodes
+
 
 def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
     """
@@ -24,7 +24,8 @@ def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
             return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value, 'piece': None, 'field': None}
         else:
             # prüfen ob und welche Figur auf dem target Feld steht
-            print('valid')
+            # print('valid')
+            pass
     else:
         max_value = max(abs(move_vector[0]), abs(move_vector[1]))
         vector_reduced = [move_vector[0]/max_value, move_vector[1]/max_value]
@@ -32,15 +33,12 @@ def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
             return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value, 'piece': None, 'field': None}
         else:
             # prüfen ob was dazwischen liegt
-            print('valid')
             # step by step towards target field
             for step in range(1, occupied_fields[a]['max_steps'] + 1):
                 # add vector_reduced to start_coords to move one field ahead
                 coordinates_temp = [start_coordiantes[0] + step * vector_reduced[0], start_coordiantes[1] + step * vector_reduced[1]]
-                print(coordinates_temp)
                 transform = transform_into_code(coordinates_temp)
                 coords_temp_trans = transform['value']
-                print(coords_temp_trans)
                 # valid transformation of coordinates
                 if transform['result']:
                     # check if there is a piece at the actual field
@@ -72,31 +70,34 @@ def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
                             'field': None}
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    with open("../chess_figure_config.yml", "r") as ymlfile:
+    with open("../chess_figures_config.yml", "r") as ymlfile:
         pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
-    occ = {'B2': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'R', 'max_steps': 1},
-             'D2': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'R', 'max_steps': 1},
-             'C2': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'R', 'max_steps': 1},
-             'A7': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'R', 'max_steps': 1},
-             'G6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'R', 'max_steps': 1},
-             'H5': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'R', 'max_steps': 1},
-             'C6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'R', 'max_steps': 1},
-             'F7': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'R', 'max_steps': 1},
-             'B7': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
-             'E6': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
-             'A4': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7}, 'D4': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7}, 'D3': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R', 'max_steps': 7}, 'B5': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R', 'max_steps': 7}, 'H3': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R', 'max_steps': 7}, 'B1': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'R', 'max_steps': 7}, 'G7': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R', 'max_steps': 1}, 'A8': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R', 'max_steps': 1}, 'F3': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R', 'max_steps': 1}, 'C1': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'R', 'max_steps': 1}}
+    occ = {'G4': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'P', 'max_steps': 1},
+ 'E2': {'piece': 'PAWN', 'colour': 'white', 'dir': [[-1, 0]], 'sign': 'P', 'max_steps': 1},
+ 'E6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'P', 'max_steps': 1},
+ 'B6': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'P', 'max_steps': 1},
+ 'G5': {'piece': 'PAWN', 'colour': 'black', 'dir': [[1, 0]], 'sign': 'P', 'max_steps': 1},
+ 'B2': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
+ 'G6': {'piece': 'ROOK', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
+ 'D8': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
+ 'G1': {'piece': 'ROOK', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1]], 'sign': 'R', 'max_steps': 7},
+ 'E4': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'B', 'max_steps': 7},
+ 'G2': {'piece': 'BISHOP', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'B', 'max_steps': 7},
+ 'F5': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'B', 'max_steps': 7},
+ 'E1': {'piece': 'BISHOP', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'B', 'max_steps': 7},
+ 'E5': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'N', 'max_steps': 1},
+ 'B3': {'piece': 'KNIGHT', 'colour': 'white', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'N', 'max_steps': 1},
+ 'A7': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'N', 'max_steps': 1},
+ 'H3': {'piece': 'KNIGHT', 'colour': 'black', 'dir': [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]], 'sign': 'N', 'max_steps': 1},
+ 'D6': {'piece': 'QUEEN', 'colour': 'white', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'Q', 'max_steps': 7},
+ 'C7': {'piece': 'QUEEN', 'colour': 'black', 'dir': [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'Q', 'max_steps': 7},
+ 'D1': {'piece': 'KING', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1},
+ 'G3': {'piece': 'KING', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1}}
 
-    a = 'A6'
-    b = 'A5'
+    a = 'D1'
+    b = 'D2'
     print(move_validation(a, b, occ))
 
 

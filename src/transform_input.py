@@ -1,4 +1,4 @@
-from return_codes import ReturnCodes
+from src.return_codes import ReturnCodes
 
 
 def transform_into_coordinates(letter_plus_code: str):

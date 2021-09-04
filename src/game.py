@@ -1,38 +1,41 @@
-from return_codes import ReturnCodes
 import yaml
-import random
-from transform_input import transform_into_coordinates
-from init_board import init_board
-from draw_board import draw_board
-from check_input import check_input, check_field
+from src.return_codes import ReturnCodes
+from src.init_board import init_board
+from src.draw_board import draw_board
+from src.check_input import check_input, check_field
+from src.move_validation import move_validation
 
 
 class ChessGame:
 
     def __init__(self, rand_order=False):
+        """
+
+        :param rand_order:
+        """
 
         try:
-            with open("../chess_figure_config.yml", "r") as ymlfile:
+            with open("chess_figures_config.yml", "r") as ymlfile:
                 self.pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
             self.occupied_fields = {}
             self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)
+            self.starting_field = ''
+            self.target_field = ''
             print('Board ready...')
             draw_board(self.board)
 
         except Exception as e:
             print(ReturnCodes.CONFIG_ERROR.value, e)
 
-
-
     def get_intended_move(self):
 
         while True:
-            starting_field = input('Which piece to move?').upper()
-            user_input = check_input(starting_field)
+            self.starting_field = input('Which piece to move?').upper()
+            user_input = check_input(self.starting_field)
             if user_input['result']:
-                check = check_field(starting_field, self.occupied_fields)
+                check = check_field(self.starting_field, self.occupied_fields)
                 if check['result']:
-                    print(f'{check["colour"].capitalize()} {check["piece"].lower()} selected')
+                    print(f'{check["colour"].capitalize()} {check["piece"].capitalize()} selected')
                     break
                 else:
                     print(check['message'])
@@ -40,23 +43,31 @@ class ChessGame:
                 print(user_input['message'])
 
         while True:
-            target_field = input('Where to move?').upper()
-            res = check_input(target_field)
+            self.target_field = input('Where to move?').upper()
+            res = check_input(self.target_field)
             if res['result']:
-                if target_field == starting_field:
+                if self.target_field == self.starting_field:
                     print(ReturnCodes.SAME_COORDINATES.value)
                 else:
                     break
             else:
                 print(res['message'])
 
-        print(f'{check["colour"].capitalize()} {check["piece"].lower()} {starting_field} --> {target_field}')
-        return starting_field, target_field
+        print(f'{check["colour"].capitalize()} {check["piece"].capitalize} {self.starting_field} --> {self.target_field}')
+        return self.starting_field, self.target_field
 
-
-    def validate_move(self, moves: tuple) -> dict:
-        pass
-
+    def validate_move(self):
+        """
+        Validates intended move from a to b
+        :param a:
+        :param b:
+        :return:
+        """
+        if self.starting_field and self.target_field:
+            check_move = move_validation(self.starting_field, self.target_field, self.occupied_fields)
+            print(check_move['message'])
+        else:
+            print('Values not set yet, please choose first!')
 
 
 
@@ -65,3 +76,4 @@ class ChessGame:
 if __name__ == '__main__':
     game = ChessGame(rand_order=True)
     game.get_intended_move()
+    game.validate_move()

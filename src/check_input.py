@@ -1,4 +1,4 @@
-from return_codes import ReturnCodes
+from src.return_codes import ReturnCodes
 
 
 def check_input(letter_plus_code: str) -> dict:

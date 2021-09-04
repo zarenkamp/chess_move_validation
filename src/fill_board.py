@@ -1,4 +1,4 @@
-from transform_input import transform_into_coordinates
+from src.transform_input import transform_into_coordinates
 
 
 def fill_board(occupied_fields: dict, board: list) -> list:
