@@ -1,5 +1,5 @@
 """
-main game
+main game, run from ide or from console with 'python path_to_dir/main.py'
 """
 from src.game import ChessGame
 
