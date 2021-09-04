@@ -1,6 +1,8 @@
 from transform_input import transform_into_coordinates, transform_into_code
 import random
 from fill_board import fill_board
+import yaml
+from draw_board import draw_board
 
 
 def init_board(pieces_config, random_lineup=False):
@@ -24,19 +26,16 @@ def init_board(pieces_config, random_lineup=False):
                 # transform into board coordinates
                 pawn_coord = transform_into_coordinates(pawn_position)
                 rand_movement = random.randint(0, 2)
-                # ...and moves them by initial position +0 - +2 * directions_of_movement,
-                # multiplied by (-1) as the board is flipped in comparison to the players view!
-                pawn_row = pawn_coord[0] + rand_movement * pieces_config['PAWN'][colour]['directions_of_movement'][0][0] * (-1)
+                pawn_row = pawn_coord[0] + rand_movement * pieces_config['PAWN'][colour]['directions_of_movement'][0][0]
                 # column of the pawn stays the same
                 pawn_col = pawn_coord[1]
                 # re-transform
-                position = transform_into_code([pawn_row, pawn_col])
+                position = transform_into_code([pawn_row, pawn_col])['value']
                 occupied_fields[position] = {'piece': 'PAWN',
                                              'colour': colour,
-                                             'dir': pieces_config['PAWN'][colour][
-                                             'directions_of_movement'],
-                                             'sign': 'R'}
-
+                                             'dir': pieces_config['PAWN'][colour]['directions_of_movement'],
+                                             'sign': 'R',
+                                             'max_steps': pieces_config['PAWN'][colour]['max_steps']}
         # fill board to see which fields are still empty
         board_temp = fill_board(occupied_fields, initial_board)
 
@@ -52,12 +51,12 @@ def init_board(pieces_config, random_lineup=False):
                     for number in range(len(pieces_config[piece][colour]['init_pos'])):
                         # pick a random empty field and remove it from the list
                         random_index = random.randint(0, len(empty_fields) - 1)
-                        random_position = transform_into_code(empty_fields.pop(random_index))
+                        random_position = transform_into_code(empty_fields.pop(random_index))['value']
                         occupied_fields[random_position] = {'piece': piece,
                                                           'colour': colour,
-                                                          'dir': pieces_config[piece][colour][
-                                                          'directions_of_movement'],
-                                                          'sign': 'R'}
+                                                          'dir': pieces_config[piece][colour]['directions_of_movement'],
+                                                          'sign': 'R',
+                                                           'max_steps': pieces_config[piece][colour]['max_steps']}
         board = fill_board(occupied_fields, board_temp)
 
     else:
@@ -65,17 +64,20 @@ def init_board(pieces_config, random_lineup=False):
             for colour in pieces_config[piece].keys():
                 for position in pieces_config[piece][colour]['init_pos']:
                     occupied_fields[position] = {'piece': piece,
-                                                      'colour': colour,
-                                                      'dir': pieces_config[piece][colour][
-                                                      'directions_of_movement'],
-                                                      'sign': 'R'}
+                                                 'colour': colour,
+                                                 'dir': pieces_config[piece][colour]['directions_of_movement'],
+                                                 'sign': 'R',
+                                                 'max_steps': pieces_config[piece][colour]['max_steps']}
         board = fill_board(occupied_fields, initial_board)
 
     return board, occupied_fields
 
 
-
-
 if __name__ == '__main__':
+    with open("chess_figure_config.yml", "r") as ymlfile:
+        pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
-    print(init_board(True))
+    res = init_board(pieces_configs, True)
+    print(res[1])
+    draw_board(res[0])
+
