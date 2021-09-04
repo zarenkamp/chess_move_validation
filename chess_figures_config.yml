@@ -112,6 +112,10 @@ KING:
   white:
     init_pos: [E1]
     directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
       - [ 1,  1 ]
       - [ 1, -1 ]
       - [-1,  1 ]
@@ -121,6 +125,10 @@ KING:
   black:
     init_pos: [E8]
     directions_of_movement:
+      - [ 1,  0 ]
+      - [-1,  0 ]
+      - [ 0,  1 ]
+      - [ 0, -1 ]
       - [ 1,  1 ]
       - [ 1, -1 ]
       - [-1,  1 ]
