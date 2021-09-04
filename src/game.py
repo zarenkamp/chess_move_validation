@@ -12,7 +12,7 @@ class ChessGame:
     def __init__(self, rand_order=False):
 
         try:
-            with open("chess_figure_config.yml", "r") as ymlfile:
+            with open("../chess_figure_config.yml", "r") as ymlfile:
                 self.pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
             self.occupied_fields = {}
             self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)

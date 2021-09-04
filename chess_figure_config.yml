@@ -4,13 +4,13 @@ PAWN:
     directions_of_movement:
        - [ -1,  0 ]
     max_steps: 1
-    sign: Pw
+    sign: P
   black:
     init_pos: [A7, B7, C7, D7, E7, F7, G7, H7]
     directions_of_movement:
       - [ 1,  0 ]
     max_steps: 1
-    sign: Pb
+    sign: P
 
 ROOK:
   white:
@@ -21,7 +21,7 @@ ROOK:
       - [ 0,  1 ]
       - [ 0, -1 ]
     max_steps: 7
-    sign: Rw
+    sign: R
   black:
     init_pos: [A8, H8]
     directions_of_movement:
@@ -30,7 +30,7 @@ ROOK:
       - [ 0,  1 ]
       - [ 0, -1 ]
     max_steps: 7
-    sign: Rb
+    sign: R
 
 BISHOP:
   white:
@@ -41,7 +41,7 @@ BISHOP:
       - [-1,  1 ]
       - [-1, -1 ]
     max_steps: 7
-    sign: Bw
+    sign: B
   black:
     init_pos: [C8, F8]
     directions_of_movement:
@@ -50,7 +50,7 @@ BISHOP:
       - [-1,  1 ]
       - [-1, -1 ]
     max_steps: 7
-    sign: Bb
+    sign: B
 
 KNIGHT:
   white:
@@ -65,7 +65,7 @@ KNIGHT:
       - [-1,  2 ]
       - [-1, -2 ]
     max_steps: 1
-    sign: Kw
+    sign: K
   black:
     init_pos: [B8, G8]
     directions_of_movement:
@@ -78,7 +78,7 @@ KNIGHT:
       - [-1,  2 ]
       - [-1, -2 ]
     max_steps: 1
-    sign: Kb
+    sign: K
 
 #PAWN:
 #  white:

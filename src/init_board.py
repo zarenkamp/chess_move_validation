@@ -74,7 +74,7 @@ def init_board(pieces_config, random_lineup=False):
 
 
 if __name__ == '__main__':
-    with open("chess_figure_config.yml", "r") as ymlfile:
+    with open("../chess_figure_config.yml", "r") as ymlfile:
         pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
     res = init_board(pieces_configs, True)
