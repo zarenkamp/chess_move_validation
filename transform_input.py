@@ -6,7 +6,7 @@ def transform_into_coordinates(letter_plus_code: str):
     # left corner to simplify iteration over nested list
     mapping = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7,
                '1': 7, '2': 6, '3': 5, '4': 4, '5': 3, '6': 2, '7': 1, '8': 0}
-
+    letter_plus_code = letter_plus_code.upper()
     if len(letter_plus_code) == 2\
             and letter_plus_code[0].isalpha()\
             and letter_plus_code[0] in mapping.keys()\
@@ -20,7 +20,11 @@ def transform_into_coordinates(letter_plus_code: str):
 def transform_into_code(coordinates):
     first_digit = {0: '8', 1: '7', 2: '6', 3: '5', 4: '4', 5: '3', 6: '2', 7: '1'}
     second_digit = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F', 6: 'G', 7: 'H'}
-    return second_digit[coordinates[1]]+first_digit[coordinates[0]]
+
+    if coordinates[0] in first_digit.keys() and coordinates[1] in second_digit.keys():
+        return {'result': True, 'message': None, 'value': second_digit[coordinates[1]] + first_digit[coordinates[0]]}
+    else:
+        return {'result': False, 'message': ReturnCodes.INVALID_COORDINATES.value, 'value': None}
 
 if __name__ == '__main__':
 
