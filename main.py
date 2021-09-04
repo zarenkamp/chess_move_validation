@@ -34,6 +34,7 @@ if __name__ == '__main__':
                         break
 
                 if new_try == '1':
+                    game.display_board()
                     continue
                 else:
                     break
