@@ -28,5 +28,5 @@ The board can be initialized with any number and kind of pieces at any position.
 
 ## Info
 Developed in Python 3.9
-# Packages
+### Packages
 ....
