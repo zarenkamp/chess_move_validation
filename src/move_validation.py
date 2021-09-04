@@ -13,30 +13,36 @@ def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
     :param occupied_fields: dict with all occupied fields
     :return: result dict
     """
-    start_coordiantes = transform_into_coordinates(a)
-    target_coordiantes = transform_into_coordinates(b)
+    start_coordinates = transform_into_coordinates(a)
+    target_coordinates = transform_into_coordinates(b)
 
     # get vector of intended move
-    move_vector = [target_coordiantes[0]-start_coordiantes[0], target_coordiantes[1]-start_coordiantes[1]]
+    move_vector = [target_coordinates[0]-start_coordinates[0], target_coordinates[1]-start_coordinates[1]]
 
-    if occupied_fields[a] == 'KNIGHT':
+    if occupied_fields[a]['piece'] == 'KNIGHT':
         if move_vector not in occupied_fields[a]['dir']:
             return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value, 'piece': None, 'field': None}
         else:
-            # prüfen ob und welche Figur auf dem target Feld steht
-            # print('valid')
-            pass
+            if b in occupied_fields.keys():
+                if occupied_fields[b]['colour'] == occupied_fields[a]['colour']:
+                    return {'result': False, 'message': ReturnCodes.MOVE_BLOCKED_OWN.value,
+                            'piece': occupied_fields[b]['piece'], 'field': b}
+                else:
+                    return {'result': False, 'message': ReturnCodes.BEAT_FIGURE.value,
+                            'piece': occupied_fields[b]['piece'], 'field': b}
+            else:
+                return {'result': True, 'message': ReturnCodes.SUCCESS.value,
+                        'piece': None, 'field': None}
     else:
         max_value = max(abs(move_vector[0]), abs(move_vector[1]))
         vector_reduced = [move_vector[0]/max_value, move_vector[1]/max_value]
         if vector_reduced not in occupied_fields[a]['dir']:
             return {'result': False, 'message': ReturnCodes.INVALID_MOVE.value, 'piece': None, 'field': None}
         else:
-            # prüfen ob was dazwischen liegt
             # step by step towards target field
             for step in range(1, occupied_fields[a]['max_steps'] + 1):
-                # add vector_reduced to start_coords to move one field ahead
-                coordinates_temp = [start_coordiantes[0] + step * vector_reduced[0], start_coordiantes[1] + step * vector_reduced[1]]
+                # add vector_reduced to start_coordiantes to move one field ahead
+                coordinates_temp = [start_coordinates[0] + step * vector_reduced[0], start_coordinates[1] + step * vector_reduced[1]]
                 transform = transform_into_code(coordinates_temp)
                 coords_temp_trans = transform['value']
                 # valid transformation of coordinates
@@ -96,8 +102,8 @@ if __name__ == '__main__':
  'D1': {'piece': 'KING', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1},
  'G3': {'piece': 'KING', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1}}
 
-    a = 'D1'
-    b = 'D2'
+    a = 'E5'
+    b = 'D3'
     print(move_validation(a, b, occ))
 
 
