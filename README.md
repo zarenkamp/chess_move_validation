@@ -36,4 +36,4 @@ Developed in Python 3.9
 
 ### Additional info
 If you are running the game in a brighter colour scheme and you are not able
-to see the pieces on board properly, you can change the colours in draw_board.py
+to see the pieces on the board properly, you can change the colours in draw_board.py
