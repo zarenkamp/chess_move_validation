@@ -28,7 +28,8 @@ The board can be initialized with any number and kind of pieces at any position.
 
 ## Info
 Developed in Python 3.9
-### Depencies
+
+### Dependencies
 - PyYAML 5.4.1
 - colorama 0.4.4
 - termcolor 1.1.0
