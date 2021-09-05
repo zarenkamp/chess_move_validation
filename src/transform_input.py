@@ -18,9 +18,10 @@ def transform_into_coordinates(letter_plus_code: str):
             and letter_plus_code[0] in mapping.keys()\
             and letter_plus_code[1].isnumeric()\
             and letter_plus_code[1] in mapping.keys():
-        return [mapping[letter_plus_code[1]], mapping[letter_plus_code[0]]]  # row index before column index
+        # row index before column index
+        return {'result': True, 'message': None, 'value': [mapping[letter_plus_code[1]], mapping[letter_plus_code[0]]]}
     else:
-        return ReturnCodes.WRONG_INPUT_FORMAT.value
+        return {'result': False, 'message': ReturnCodes.WRONG_INPUT_FORMAT.value, 'value': None}
 
 
 def transform_into_code(coordinates: list) -> dict:
