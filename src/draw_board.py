@@ -11,7 +11,7 @@ def draw_board(board: list):
     """
 
     insert_board = []
-    color_white_figs = 'yellow'
+    color_white_figs = 'yellow'  # available: grey, red, green, yellow, blue, magenta, cyan, white
     color_black_figures = 'red'
 
     for index_row, row in enumerate(board):

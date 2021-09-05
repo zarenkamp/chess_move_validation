@@ -25,7 +25,7 @@ def init_board(pieces_config, random_lineup=False):
             pawn_selection = random.sample(pieces_config['PAWN'][colour]['init_pos'], pawn_number)
             for pawn_position in pawn_selection:
                 # transform into board coordinates
-                pawn_coord = transform_into_coordinates(pawn_position)
+                pawn_coord = transform_into_coordinates(pawn_position)['value']
                 rand_movement = random.randint(0, 2)
                 pawn_row = pawn_coord[0] + rand_movement * pieces_config['PAWN'][colour]['directions_of_movement'][0][0]
                 # column of the pawn stays the same
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     with open("../chess_figures_config.yml", "r") as ymlfile:
         pieces_configs = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
-    res = init_board(pieces_configs, False)
+    res = init_board(pieces_configs, True)
     print(res[1])
     draw_board(res[0])
 

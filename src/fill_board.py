@@ -10,14 +10,11 @@ def fill_board(occupied_fields: dict, board: list) -> list:
     :return: board list with new positions of pieces
     """
     for field in occupied_fields.keys():
-        coordinates = transform_into_coordinates(field)
+        coordinates = transform_into_coordinates(field)['value']
         board[coordinates[0]][coordinates[1]] = {'piece': occupied_fields[field]['piece'],
                                                  'colour': occupied_fields[field]['colour'],
                                                  'sign': occupied_fields[field]['sign']}
     return board
-
-
-
 
 
 if __name__ == '__main__':
