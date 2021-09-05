@@ -33,3 +33,7 @@ Developed in Python 3.9
 - PyYAML 5.4.1
 - colorama 0.4.4
 - termcolor 1.1.0
+
+### Additional info
+If you running the game in a brighter colour scheme and you are not able
+to see the pieces on board properly, you can change the colours in draw_board.py
