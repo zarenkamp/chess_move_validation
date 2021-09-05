@@ -13,8 +13,8 @@ def move_validation(a: str, b: str, occupied_fields: dict) -> dict:
     :param occupied_fields: dict with all occupied fields
     :return: result dict
     """
-    start_coordinates = transform_into_coordinates(a)
-    target_coordinates = transform_into_coordinates(b)
+    start_coordinates = transform_into_coordinates(a)['value']
+    target_coordinates = transform_into_coordinates(b)['value']
 
     # get vector of intended move
     move_vector = [target_coordinates[0]-start_coordinates[0], target_coordinates[1]-start_coordinates[1]]
@@ -103,7 +103,7 @@ if __name__ == '__main__':
  'G3': {'piece': 'KING', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1}}
 
     x = 'E5'
-    y = 'D3'
+    y = 'D4'
     print(move_validation(x, y, occ))
 
 
