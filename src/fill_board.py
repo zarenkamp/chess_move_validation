@@ -3,21 +3,18 @@ from src.transform_input import transform_into_coordinates
 
 def fill_board(occupied_fields: dict, board: list) -> list:
     """
-    Fills the board with all the pieces in occupied fields dict. Each entry is a tuple consisting the piece and the
-    colour.
+    Fills the board with all the pieces in occupied fields dict. Each entry is a tuple including the piece, its colour
+    and its sign.
     :param occupied_fields: dict with all occupied fields and the pieces on them
     :param board: list of all fields of the board
     :return: board list with new positions of pieces
     """
     for field in occupied_fields.keys():
-        coordinates = transform_into_coordinates(field)
+        coordinates = transform_into_coordinates(field)['value']
         board[coordinates[0]][coordinates[1]] = {'piece': occupied_fields[field]['piece'],
                                                  'colour': occupied_fields[field]['colour'],
                                                  'sign': occupied_fields[field]['sign']}
     return board
-
-
-
 
 
 if __name__ == '__main__':

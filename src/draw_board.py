@@ -4,9 +4,14 @@ colorama.init()
 
 
 def draw_board(board: list):
+    """
+    Takes board list as input, colours the pieces and the fields
+    :param board: list with all pieces and empty fields
+    :return:
+    """
 
     insert_board = []
-    color_white_figs = 'yellow'
+    color_white_figs = 'yellow'  # available: grey, red, green, yellow, blue, magenta, cyan, white
     color_black_figures = 'red'
 
     for index_row, row in enumerate(board):
@@ -39,8 +44,4 @@ def draw_board(board: list):
 
 
 if __name__ == '__main__':
-
-    t2 = [[{'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}, '+', {'piece': 'BISHOP', 'colour': 'black', 'sign': 'R'}, '+', '+', {'piece': 'BISHOP', 'colour': 'black', 'sign': 'R'}, '+', {'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}], [{'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'R'}], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], [{'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'R'}], [{'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}, '+', {'piece': 'BISHOP', 'colour': 'white', 'sign': 'R'}, '+', '+', {'piece': 'BISHOP', 'colour': 'white', 'sign': 'R'}, '+', {'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}]]
-
-
-    draw_board(t2)
+    pass
