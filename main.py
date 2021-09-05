@@ -1,6 +1,8 @@
-"""
-main game, run from ide or from console with 'python path_to_dir/main.py'
-"""
+__author__ = "Jonas Fahrenkamp"
+__version__ = "1.0"
+__email__ = "jonas.fahrenkamp@postoe.de"
+
+
 from src.game import ChessGame
 
 if __name__ == '__main__':

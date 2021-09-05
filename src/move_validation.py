@@ -102,9 +102,9 @@ if __name__ == '__main__':
  'D1': {'piece': 'KING', 'colour': 'white', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1},
  'G3': {'piece': 'KING', 'colour': 'black', 'dir': [[1, 1], [1, -1], [-1, 1], [-1, -1]], 'sign': 'K', 'max_steps': 1}}
 
-    a = 'E5'
-    b = 'D3'
-    print(move_validation(a, b, occ))
+    x = 'E5'
+    y = 'D3'
+    print(move_validation(x, y, occ))
 
 
 
