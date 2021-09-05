@@ -61,7 +61,9 @@ class ChessGame:
             else:
                 print(res['message'])
 
-        print(f'{check["colour"].capitalize()} {check["piece"].capitalize()} {self.starting_field} --> {self.target_field}')
+        print(f'Intended move: {check["colour"].capitalize()} {check["piece"].capitalize()}'
+              f' {self.starting_field} --> {self.target_field}')
+
         return self.starting_field, self.target_field
 
     def validate_move(self):
@@ -71,8 +73,15 @@ class ChessGame:
         """
         if self.starting_field and self.target_field:
             check_move = move_validation(self.starting_field, self.target_field, self.occupied_fields)
-            print(check_move['message'])
-            return {'result': True, 'message': check_move['message']}
+            if 'PIECE' and 'FIELD' in check_move['message']:
+                message = check_move['message'].replace('PIECE', check_move['piece'].capitalize())\
+                                               .replace('FIELD', check_move['field'].capitalize())
+                print(message)
+                return {'result': True, 'message': message}
+            else:
+                message = check_move['message']
+                print(message)
+                return {'result': True, 'message': message}
         else:
             print('Values not set yet, please choose first!')
             return {'result': False, 'message': ReturnCodes.NO_FIELDS_SELECTED.value}
