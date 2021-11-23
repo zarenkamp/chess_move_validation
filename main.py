@@ -1,6 +1,6 @@
 __author__ = "Jonas Fahrenkamp"
-__version__ = "1.0"
-__email__ = "jonas.fahrenkamp@postoe.de"
+__version__ = "1.1"
+__email__ = "jonasfahrenkamp@postoe.de"
 
 
 from src.game import ChessGame
