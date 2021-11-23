@@ -30,9 +30,7 @@ The board can be initialized with any number and kind of pieces at any position.
 Developed in Python 3.9
 
 ### Dependencies
-- PyYAML 5.4.1
-- colorama 0.4.4
-- termcolor 1.1.0
+See requirements.txt
 
 ### Additional info
 If you are running the game in a brighter colour scheme and you are not able
