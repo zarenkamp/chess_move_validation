@@ -1,5 +1,7 @@
 from termcolor import colored
 import colorama
+import yaml
+import pathlib
 colorama.init()
 
 
@@ -14,20 +16,21 @@ def draw_board(board: list):
     color_white_figs = 'yellow'  # available: grey, red, green, yellow, blue, magenta, cyan, white
     color_black_figures = 'red'
 
+    with open(pathlib.Path(__file__).parent / "ascii_codes_figures.yaml", "r") as ymlfile:
+        ascii_codes = yaml.load(ymlfile, Loader=yaml.FullLoader)
     for index_row, row in enumerate(board):
         for index_col, piece in enumerate(row):
-
             if type(piece) == dict:
+                # piece is element in board list, either a dict with a figure or just a '+'
                 if piece['colour'] == 'white':
-                    insert_board.append(colored(piece['sign'], color_white_figs))
+                    insert_board.append(colored(ascii_codes[piece['piece']], color_white_figs))
                 else:
-                    insert_board.append(colored(piece['sign'], color_black_figures))
+                    insert_board.append(colored(ascii_codes[piece['piece']], color_black_figures))
             else:
                 if index_row % 2 != 0 and index_col % 2 != 0 or index_row % 2 == 0 and index_col % 2 == 0:
                     insert_board.append(colored(piece, 'white'))
                 else:
                     insert_board.append(colored(piece, 'grey'))
-
 
     print("   A B C D E F G H\n"
           "   ---------------\n"
@@ -44,4 +47,5 @@ def draw_board(board: list):
 
 
 if __name__ == '__main__':
-    pass
+    b = [[{'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}, {'piece': 'KNIGHT', 'colour': 'black', 'sign': 'N'}, {'piece': 'BISHOP', 'colour': 'black', 'sign': 'B'}, {'piece': 'QUEEN', 'colour': 'black', 'sign': 'Q'}, {'piece': 'KING', 'colour': 'black', 'sign': 'K'}, {'piece': 'BISHOP', 'colour': 'black', 'sign': 'B'}, {'piece': 'KNIGHT', 'colour': 'black', 'sign': 'N'}, {'piece': 'ROOK', 'colour': 'black', 'sign': 'R'}], [{'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'black', 'sign': 'P'}], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], ['+', '+', '+', '+', '+', '+', '+', '+'], [{'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}, {'piece': 'PAWN', 'colour': 'white', 'sign': 'P'}], [{'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}, {'piece': 'KNIGHT', 'colour': 'white', 'sign': 'N'}, {'piece': 'BISHOP', 'colour': 'white', 'sign': 'B'}, {'piece': 'QUEEN', 'colour': 'white', 'sign': 'Q'}, {'piece': 'KING', 'colour': 'white', 'sign': 'K'}, {'piece': 'BISHOP', 'colour': 'white', 'sign': 'B'}, {'piece': 'KNIGHT', 'colour': 'white', 'sign': 'N'}, {'piece': 'ROOK', 'colour': 'white', 'sign': 'R'}]]
+    draw_board(b)
