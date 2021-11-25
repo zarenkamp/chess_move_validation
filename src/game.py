@@ -1,4 +1,5 @@
 import yaml
+import pathlib
 from src.return_codes import ReturnCodes
 from src.init_board import init_board
 from src.draw_board import draw_board
@@ -19,7 +20,7 @@ class ChessGame:
         """
 
         try:
-            with open("chess_figures_config.yml", "r") as ymlfile:
+            with open(pathlib.Path(__file__).parent.parent / "chess_figures_config.yml", "r") as ymlfile:
                 self.pieces_config = yaml.load(ymlfile, Loader=yaml.FullLoader)
             self.occupied_fields = {}
             self.board, self.occupied_fields = init_board(self.pieces_config, rand_order)
