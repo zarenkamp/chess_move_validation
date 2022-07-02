@@ -1,3 +1,5 @@
+This was the coding challenge for my current job.
+
 ## Chess Move Validation 
 Write a command line program that checks whether a move on a chessboard
 is valid or not.
@@ -28,11 +30,6 @@ The board can be initialized with any number and kind of pieces at any position.
 
 ## Info
 Developed in Python 3.9
-
-### Dependencies
-- PyYAML 5.4.1
-- colorama 0.4.4
-- termcolor 1.1.0
 
 ### Additional info
 If you are running the game in a brighter colour scheme and you are not able
