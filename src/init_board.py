@@ -14,7 +14,7 @@ def init_board(pieces_config, random_lineup=False):
     """
 
     # draw initially '+' on the field
-    initial_board = [['+' for j in range(8)] for i in range(8)]
+    initial_board = [['+' for _ in range(8)] for _ in range(8)]
 
     occupied_fields = {}
     # place pieces randomly
